@@ -3,9 +3,9 @@ import UIKit
 
 final class BooksCustomCell: UITableViewCell {
 
-    var titleLabel = UILabel()
-    var authorLabel = UILabel()
-    var conditionLabel = UILabel()
+    private  let titleLabel = UILabel()
+    private  let authorLabel = UILabel()
+    private  let conditionLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,7 +20,7 @@ final class BooksCustomCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func cellTapped() {
+    @objc private func cellTapped() {
         if frame.height == 100 {
             UIView.animate(withDuration: 0.2) {
                 self.frame.size.height = 50
@@ -39,7 +39,7 @@ final class BooksCustomCell: UITableViewCell {
     }
     
 
-    func setupUI() {
+    private func setupUI() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
 
