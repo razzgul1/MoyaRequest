@@ -1,7 +1,7 @@
 
 import UIKit
 
-class BooksCustomCell: UITableViewCell {
+final class BooksCustomCell: UITableViewCell {
 
     var titleLabel = UILabel()
     var authorLabel = UILabel()
