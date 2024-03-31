@@ -1,5 +1,3 @@
-
-
 import UIKit
 import Moya
 
@@ -19,7 +17,8 @@ class BooksViewController: UIViewController {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "BookCell")
+        tableView.register(BooksCustomCell.self, forCellReuseIdentifier: "BooksCustomCell")
+        
         view.addSubview(tableView)
         
         fetchBooks()
@@ -37,7 +36,7 @@ class BooksViewController: UIViewController {
                     DispatchQueue.main.async {
                         
                         for book in self.books {
-                            print(book.title, book.author, book.condition)
+                            print(book.title, book.author)
                         }
                     }
                     
@@ -54,18 +53,24 @@ class BooksViewController: UIViewController {
 }
 
 extension BooksViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.performBatchUpdates(nil)
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BooksCustomCell(style: .default, reuseIdentifier: "BookCell")
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "BooksCustomCell") as? BooksCustomCell
+        else {
+            return UITableViewCell()
+        }
         let book = books[indexPath.row]
         cell.configure(with: book.title, author: book.author, condition: book.condition)
         return cell
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
 }
+
